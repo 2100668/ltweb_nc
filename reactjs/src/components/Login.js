@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { loginUser } from '../services/LoginService.js';  // Giả sử bạn đã có một service cho đăng nhập
-import './Register.css';  // Import CSS file
+import { loginUser } from '../services/AuthService.js';  // Giả sử bạn đã có một service cho đăng nhập
+import './Auth.css';  // Import CSS file
 
 const Login = () => {
     const [username, setUsername] = useState('');
