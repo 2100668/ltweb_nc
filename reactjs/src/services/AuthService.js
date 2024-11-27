@@ -22,12 +22,51 @@ export const registerUser = async (username, password) => {
     }
 };
 
-
 export const loginUser = async (username, password) => {
     try {
-        const response = await axios.post(apiUrl, { username, password });
+        const response = await axios.post(`${apiUrl}/login`, {  // Chú ý URL phải chính xác
+            username,
+            password
+        });
         return response.data;  // Trả về dữ liệu từ server
     } catch (error) {
-        throw new Error(error.response ? error.response.data.error || error.response.data.message : 'Network Error');
+        if (error.response) {
+            // Trả về lỗi từ server nếu có (status code != 2xx)
+            throw new Error(error.response.data.error || error.response.data.message);
+        } else {
+            // Trả về lỗi mạng hoặc không phản hồi
+            throw new Error('Network Error');
+        }
     }
 };
+
+export const getUser = async () => {
+    try {
+        // Lấy username từ localStorage
+        const username = localStorage.getItem('username');
+
+        if (!username) {
+            throw new Error('Username not found in localStorage');
+        }
+
+        // Lấy token từ localStorage để gửi trong header Authorization
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            throw new Error('Token not found in localStorage');
+        }
+
+        // Gửi yêu cầu GET để lấy thông tin người dùng
+        const response = await axios.get(`${apiUrl}/user/${username}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,  // Gửi token trong header để xác thực
+            }
+        });
+
+        // Trả về dữ liệu người dùng từ server
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message || 'Error fetching user');
+    }
+};
+

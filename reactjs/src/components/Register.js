@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate từ react-router-dom
 import { registerUser } from '../services/AuthService.js';
 import './Auth.css';  // Import CSS file
@@ -9,6 +9,15 @@ const Register = () => {
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();  // Khởi tạo navigate
+
+    // Kiểm tra nếu đã có token trong localStorage thì chuyển hướng đến trang /user
+    useEffect(() => {
+        const token = localStorage.getItem('token');  // Đảm bảo lấy token sau khi trang đã được tải
+        localStorage.setItem('username', username);
+        if (token) {
+            navigate('/user');
+        }
+    }, [navigate]);
 
     // Hàm xử lý khi form được submit
     const handleSubmit = async (e) => {
@@ -21,6 +30,10 @@ const Register = () => {
             alert(result.message);  // Hiển thị thông báo từ server
             setUsername('');
             setPassword('');
+
+            // Lưu token vào localStorage nếu đăng ký thành công
+            localStorage.setItem('token', result.token);  // Lưu token vào localStorage
+            const usernameLocal = localStorage.setItem('username', username);
 
             // Chuyển hướng đến trang người dùng sau khi đăng ký thành công
             navigate('/user');  // Dẫn người dùng đến trang /user

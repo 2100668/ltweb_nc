@@ -1,32 +1,37 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
-import { loginUser } from '../services/AuthService.js';  // Giả sử bạn đã có một service cho đăng nhập
-import './Auth.css';  // Import CSS file
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../services/AuthService.js';
+import './Auth.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();  // Khởi tạo navigate
+    const navigate = useNavigate();
 
-    // Hàm xử lý khi form được submit
+    // Kiểm tra nếu có token trong localStorage thì chuyển hướng về trang /user
+    useEffect(() => {
+        const token = localStorage.getItem('token');  // Đảm bảo lấy token sau khi trang đã được tải
+        if (token) {
+            navigate('/user');
+        }
+    }, [navigate]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setErrorMessage('');  // Reset lỗi cũ mỗi lần submit
+        setErrorMessage('');
 
         try {
-            const result = await loginUser(username, password);  // Gọi hàm đăng nhập từ service
-            alert(result.message);  // Hiển thị thông báo từ server
-            setUsername('');
-            setPassword('');
-
-            // Điều hướng tới trang người dùng sau khi đăng nhập thành công
-            navigate('/user');  // Điều hướng đến trang người dùng (có thể thay đổi URL nếu cần)
+            const result = await loginUser(username, password);
+            alert(result.message);
+            localStorage.setItem('token', result.token);  // Lưu token vào localStorage
+            const usernameLocal = localStorage.setItem('username', username);
+            navigate('/user');
         } catch (error) {
             console.error(error);
-            setErrorMessage(error.message);  // Hiển thị lỗi từ server hoặc mạng
+            setErrorMessage(error.message);
         } finally {
             setLoading(false);
         }
@@ -34,8 +39,8 @@ const Login = () => {
 
     return (
         <div className="container">
-            <div className="forms show-signup">
-                <div className="form signup">
+            <div className="forms show-login">
+                <div className="form login">
                     <header>Đăng Nhập</header>
                     <form onSubmit={handleSubmit}>
                         <div className="field">
