@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Register from './components/Register';
-import Login from './components/Login';  // Giả sử bạn có trang Login.js
+import UserPage from './components/User';  // Giả sử bạn đã có trang người dùng
+import Login from './components/Login';
 
 const App = () => {
     return (
@@ -9,6 +10,8 @@ const App = () => {
             <Routes>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/user" element={<UserPage />} />  {/* Trang người dùng */}
+                {/* Các route khác */}
             </Routes>
         </Router>
     );

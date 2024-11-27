@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import { loginUser } from '../services/AuthService.js';  // Giả sử bạn đã có một service cho đăng nhập
 import './Auth.css';  // Import CSS file
 
@@ -7,6 +8,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();  // Khởi tạo navigate
 
     // Hàm xử lý khi form được submit
     const handleSubmit = async (e) => {
@@ -19,8 +21,9 @@ const Login = () => {
             alert(result.message);  // Hiển thị thông báo từ server
             setUsername('');
             setPassword('');
-            // Điều hướng tới trang chủ hoặc trang người dùng sau khi đăng nhập thành công
-            window.location.href = '/dashboard'; // Thay đổi thành URL của bạn
+
+            // Điều hướng tới trang người dùng sau khi đăng nhập thành công
+            navigate('/user');  // Điều hướng đến trang người dùng (có thể thay đổi URL nếu cần)
         } catch (error) {
             console.error(error);
             setErrorMessage(error.message);  // Hiển thị lỗi từ server hoặc mạng

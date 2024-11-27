@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate từ react-router-dom
 import { registerUser } from '../services/AuthService.js';
 import './Auth.css';  // Import CSS file
 
@@ -7,6 +8,7 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();  // Khởi tạo navigate
 
     // Hàm xử lý khi form được submit
     const handleSubmit = async (e) => {
@@ -19,6 +21,9 @@ const Register = () => {
             alert(result.message);  // Hiển thị thông báo từ server
             setUsername('');
             setPassword('');
+
+            // Chuyển hướng đến trang người dùng sau khi đăng ký thành công
+            navigate('/user');  // Dẫn người dùng đến trang /user
         } catch (error) {
             console.error(error);
             setErrorMessage(error.message);  // Hiển thị lỗi từ server hoặc mạng
