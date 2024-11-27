@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trang Phân Loại</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <p>Thêm react vào website</p>
+  <div id="root"></div> <!-- Sử dụng ID 'root' -->
+        <!-- Gọi file app.js ở đây -->
+        <script src="index.js"></script>
+  <p>Trang Phân Loại của Tấn Phát.</p>
+
+  <script type="text/babel">
+    // File index.js nội dung
+    const App = () => {
+      return <h1>Hello, world</h1>;
+    };
+
+    const root = createRoot(document.getElementById('root'));
+    root.render(App);
+  </script>
+</body>
+</html>
