@@ -70,3 +70,26 @@ export const getUser = async () => {
     }
 };
 
+export const updateUser = async (fullname, email, sex, address) => {
+    try {
+        const username = localStorage.getItem('username');
+        const token = localStorage.getItem('token');
+
+        if (!username || !token) {
+            throw new Error('Username or Token not found in localStorage');
+        }
+
+        const response = await axios.put(`${apiUrl}/user/${username}`, 
+            { fullname, email, sex, address }, 
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            }
+        );
+
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message || 'Error updating user');
+    }
+};

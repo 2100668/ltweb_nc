@@ -28,3 +28,16 @@ export const createUser = (username, passwordHash) => {
         });
     });
 };
+
+export const updateUser = (fullname, email, sex, address, username) => {
+    return new Promise((resolve, reject) => {
+        const query = 'UPDATE users SET fullname = ?, address = ?, sex = ?, email = ? WHERE username = ?';
+        db.query(query, [fullname, address, sex, email, username], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+};

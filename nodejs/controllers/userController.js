@@ -1,6 +1,6 @@
 // controllers/AuthController.js
 import bcrypt from 'bcrypt';
-import { createUser, findUserByUsername } from '../models/UserModel.js';
+import { createUser, findUserByUsername, updateUser } from '../models/UserModel.js';
 
 export const registerUser = async (req, res) => {
     try {
@@ -75,5 +75,28 @@ export const getUserByUserName = async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+};
+
+export const updateByUsername = async (req, res) => {
+    try {
+        const { fullname, email, sex, address } = req.body;  // Lấy thông tin từ body
+        const username = req.params.username;  // Lấy username từ params
+
+        if (!username) {
+            return res.status(400).json({ error: 'Username is required' });
+        }
+
+        // Cập nhật thông tin người dùng trong cơ sở dữ liệu
+        const updatedUser = await updateUser(fullname, email, sex, address, username);
+
+        if (updatedUser) {
+            return res.status(200).json({ message: 'Cập nhật thành công', user: updatedUser });
+        } else {
+            return res.status(404).json({ error: 'Cập nhật thất bại' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };

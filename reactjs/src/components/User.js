@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUser } from '../services/AuthService';  // Đảm bảo đường dẫn chính xác
 import { useNavigate } from 'react-router-dom';  // Import useNavigate từ react-router-dom
+import './User.css';  // Import tệp CSS đã tạo
 
 const User = () => {
     const navigate = useNavigate();  // Khởi tạo navigate
@@ -35,7 +36,7 @@ const User = () => {
     };
 
     const handleUpdateUser = () => {
-        navigate('/updateuser');  // Chuyển hướng đến trang cập nhật tài khoản
+        navigate('/update');  // Chuyển hướng đến trang cập nhật tài khoản
     };
 
     if (loading) {
@@ -47,15 +48,58 @@ const User = () => {
     }
 
     return (
-        <div>
-            <h1>Chào mừng, {userData.username || 'Người dùng'}</h1>  {/* Hiển thị username */}
-            <h2>Họ và tên: {userData.fullname || 'Chưa có thông tin'}</h2>  {/* Hiển thị fullname */}
-            <h3>Địa chỉ: {userData.address || 'Chưa có địa chỉ'}</h3>  {/* Hiển thị address */}
-            <h3>Giới tính: {userData.sex || 'Chưa có thông tin'}</h3>  {/* Hiển thị sex */}
-            <h3>Email: {userData.email || 'Chưa có email'}</h3>  {/* Hiển thị email */}
-            <button onClick={handleUpdateUser}>Cập nhật tài khoản</button>  {/* Nút Cập nhật tài khoản */}
-            <button onClick={handleLogout}>Đăng xuất</button>
-        </div>
+        <section className="vh-100" style={{ backgroundColor: '#f4f5f7' }}>
+            <div className="container py-5 h-100">
+                <div className="row d-flex justify-content-center align-items-center h-100">
+                    <div className="col col-lg-6 mb-4 mb-lg-0">
+                        <div className="card mb-3" style={{ borderRadius: '.5rem' }}>
+                            <div className="row g-0">
+                                <div className="col-md-4 gradient-custom text-center text-white"
+                                    style={{ borderTopLeftRadius: '.5rem', borderTopRightRadius: '.5rem' }}>
+                                    <h6>{userData.username}</h6>
+                                    <i className="far fa-edit mb-5"></i>
+                                </div>
+                                <div>
+                                    <div className="card-body p-4">
+                                        <h6>Thông tin cá nhân</h6>
+                                        <hr className="mt-0 mb-4" />
+                                        <div className="row pt-1">
+                                            <div className="col-6 mb-3">
+                                                  <h6>Tên</h6>
+                                                <p className="text-muted">{userData.fullname || 'Chưa có email'}</p>
+                                            </div>
+                                            <div className="col-6 mb-3">
+                                                <h6>Email</h6>
+                                                <p className="text-muted">{userData.email || 'Chưa có địa chỉ'}</p>
+                                            </div>
+                                        </div>
+                                        <div className="row pt-1">
+                                            <div className="col-6 mb-3">
+                                                <h6>Giới tính</h6>
+                                                <p className="text-muted">{userData.sex || 'Chưa có địa chỉ'}</p>
+                                            </div>
+                                            <div className="col-6 mb-3">
+                                                <h6>Địa chỉ</h6>
+                                                <p className="text-muted">{userData.address || 'Chưa có địa chỉ'}</p>
+                                                <h6>Quyền truy cập</h6>
+                                                <p className="text-muted">{userData.role || 'Web Designer'}</p>
+                                            </div>
+                                        </div>
+                                        <div className="d-flex justify-content-start">
+                                            <a href="#!"><i className="fab fa-facebook-f fa-lg me-3"></i></a>
+                                            <a href="#!"><i className="fab fa-twitter fa-lg me-3"></i></a>
+                                            <a href="#!"><i className="fab fa-instagram fa-lg"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onClick={handleUpdateUser}>Cập nhật tài khoản</button>  {/* Nút Cập nhật tài khoản */}
+                        <button onClick={handleLogout}>Đăng xuất</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 };
 
