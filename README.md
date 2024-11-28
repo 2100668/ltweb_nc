@@ -52,13 +52,13 @@ ltweb_nc
 ```
 
 ## Công việc
-Thành:
+# Thành:
 * log in - out
 * giao diện người dùng
 * giao diện quản trị
-Phát:
+# Phát:
 * hiển thị ds tin tức
 * hiển thị chi tiết tin tức
 * quản lý tin tức
-Khoa:
+# Khoa:
 * loại - sp
