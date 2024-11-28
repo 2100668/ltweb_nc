@@ -50,3 +50,15 @@ ltweb_nc
 └─ README.md
 
 ```
+
+## Công việc
+Thành:
+* log in - out
+* giao diện người dùng
+* giao diện quản trị
+Phát:
+* hiển thị ds tin tức
+* hiển thị chi tiết tin tức
+* quản lý tin tức
+Khoa:
+* loại - sp
