@@ -41,3 +41,16 @@ export const updateUser = (fullname, email, sex, address, username) => {
         });
     });
 };
+
+export const updatePass = (username, passwordHash) => {
+    return new Promise((resolve, reject) => {
+        const query = 'UPDATE users SET password = ? WHERE username = ?';
+        db.query(query, [passwordHash, username], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+};

@@ -1,6 +1,6 @@
 // controllers/AuthController.js
 import bcrypt from 'bcrypt';
-import { createUser, findUserByUsername, updateUser } from '../models/UserModel.js';
+import { createUser, findUserByUsername, updateUser, updatePass } from '../models/UserModel.js';
 
 export const registerUser = async (req, res) => {
     try {
@@ -47,10 +47,11 @@ export const loginUser = async (req, res) => {
             return res.status(400).json({ error: 'Tên đăng nhập hoặc mật khẩu không đúng' });
         }
 
+        const role = user[0].role;
 
         // Trả về token
-        res.status(200).json({ message: 'Đăng nhập thành công' });
-                
+        res.status(200).json({ message: 'Đăng nhập thành công', role });
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -98,5 +99,34 @@ export const updateByUsername = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+export const updatePassByUsername = async (req, res) => {
+    try {
+        const { oldPass, newPass } = req.body;  // Lấy mật khẩu cũ và mới từ body
+        const username = req.params.username;  // Lấy username từ params
+
+        // Lấy thông tin người dùng từ database
+        const user = await findUserByUsername(username);  // Thêm phần này để lấy user từ cơ sở dữ liệu
+        if (!user) {
+            return res.status(404).json({ error: 'Người dùng không tồn tại' });
+        }
+
+        // Kiểm tra mật khẩu cũ
+        const isPasswordValid = await bcrypt.compare(oldPass, user[0].password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ error: 'Mật khẩu cũ không đúng' });
+        }
+
+        // Mã hóa mật khẩu mới
+        const passwordHash = await bcrypt.hash(newPass, 10);
+
+        // Cập nhật mật khẩu mới
+        await updatePass(username, passwordHash);
+
+        res.status(201).json({ message: 'Cập nhật mật khẩu thành công' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
