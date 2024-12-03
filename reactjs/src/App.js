@@ -6,7 +6,9 @@ import User from './components/pages/User';
 import Update from './components/pages/Update';
 import UpdatePass from './components/pages/UpdatePass';
 import Admin from './components/pages/Admin';
-import AdminProfile from './components/pages/AdminProfile';
+import Profile from './components/pages/Profile';
+import AddAccount from './components/pages/AddAccount';
+
 
 const App = () => {
     return (
@@ -19,7 +21,8 @@ const App = () => {
                 <Route path="/update" element={<Update />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/updatePass" element={<UpdatePass />} />
-                <Route path="/adminProfile" element={<AdminProfile />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/addAccount" element={<AddAccount />} />
             </Routes>
         </Router>
     );

@@ -5,6 +5,7 @@ const Admin = () => {
   // State để lưu giá trị lựa chọn
   const [selectedOption, setSelectedOption] = useState('');
   const navigate = useNavigate();
+  const username = localStorage.getItem("username")
 
   // Hàm xử lý đăng xuất (dùng useCallback để tránh tạo lại hàm mỗi lần render)
   const handleLogout = useCallback(() => {
@@ -24,15 +25,19 @@ const Admin = () => {
     }
 
     // Kiểm tra xem người dùng có chọn "Đăng xuất" không
-    if (selectedOption === 'option3') {
+    if (selectedOption === 'option4') {
       handleLogout();
     }
 
     if (selectedOption === "option1"){
-      navigate("/adminProfile")
+      navigate("/profile")
     }
 
     if (selectedOption === "option2"){
+      navigate("/addAccount")
+    }
+
+    if (selectedOption === "option3"){
       navigate("/updatePass")
     }
   
@@ -46,10 +51,11 @@ const Admin = () => {
   return (
     <div>
       <select id="dropdown" value={selectedOption} onChange={handleChange}>
-        <option value="">Nguyễn</option>
+        <option value="">{username}</option>
         <option value="option1">Thông tin người dùng</option>
-        <option value="option2">Đổi mật khẩu</option>
-        <option value="option3">Đăng xuất</option>
+        <option value="option2">Cấp tài khoản</option>
+        <option value="option3">Đổi mật khẩu</option>
+        <option value="option4">Đăng xuất</option>
       </select>
     </div>
   );
