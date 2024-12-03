@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
   // State để lưu giá trị lựa chọn
+  const username = localStorage.getItem("username")
   const [selectedOption, setSelectedOption] = useState('');
   const navigate = useNavigate();
-  const username = localStorage.getItem("username")
 
   // Hàm xử lý đăng xuất (dùng useCallback để tránh tạo lại hàm mỗi lần render)
   const handleLogout = useCallback(() => {
@@ -34,12 +34,17 @@ const Admin = () => {
     }
 
     if (selectedOption === "option2"){
-      navigate("/addAccount")
+      navigate("")
     }
 
     if (selectedOption === "option3"){
       navigate("/updatePass")
     }
+
+    if (selectedOption === "option5"){
+      navigate("/users")
+    }
+
   
   }, [selectedOption, navigate, handleLogout]); // Thêm handleLogout vào danh sách phụ thuộc
 
@@ -53,6 +58,7 @@ const Admin = () => {
       <select id="dropdown" value={selectedOption} onChange={handleChange}>
         <option value="">{username}</option>
         <option value="option1">Thông tin người dùng</option>
+        <option value="option5">Danh sách tài khoản</option>
         <option value="option2">Cấp tài khoản</option>
         <option value="option3">Đổi mật khẩu</option>
         <option value="option4">Đăng xuất</option>

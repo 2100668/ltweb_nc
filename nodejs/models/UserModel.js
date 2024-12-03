@@ -54,3 +54,30 @@ export const updatePass = (username, passwordHash) => {
         });
     });
 };
+
+// Hàm lấy tất cả người dùng
+export const getAllUsersFromDB = () => {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM users';
+        db.query(query, (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+};
+
+export const deleteUserFromDb = (username) => {
+    return new Promise((resolve, reject) => {
+        const query = 'DELETE FROM users WHERE username = ?';
+        db.query(query, [username], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+};

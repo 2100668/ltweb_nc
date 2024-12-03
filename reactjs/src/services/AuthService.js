@@ -103,3 +103,30 @@ export const updatePass = async (oldPass, newPass) => {
         throw new Error(error.response?.data.error || 'Network Error');
     }
 };
+
+export const getAllUsers = async () => {
+    try {
+        const response = await axios.get(`${apiUrl}/users`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message || 'Network Error');
+    }
+};
+
+export const deleteUser = async (username) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.delete(`${apiUrl}/user/${username}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        });
+        return response.data; // Trả về thông báo thành công
+    } catch (error) {
+        throw new Error(error.response?.data.error || 'Network Error');
+    }
+};

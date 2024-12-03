@@ -1,6 +1,6 @@
 // controllers/AuthController.js
 import bcrypt from 'bcrypt';
-import { createUser, findUserByUsername, updateUser, updatePass } from '../models/UserModel.js';
+import { createUser, findUserByUsername, updateUser, updatePass, getAllUsersFromDB, deleteUserFromDb } from '../models/UserModel.js';
 
 export const registerUser = async (req, res) => {
     try {
@@ -126,6 +126,38 @@ export const updatePassByUsername = async (req, res) => {
         await updatePass(username, passwordHash);
 
         res.status(201).json({ message: 'Cập nhật mật khẩu thành công' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const getAllUsers = async (req, res) => {
+    try {
+        // Lấy tất cả người dùng từ cơ sở dữ liệu
+        const users = await getAllUsersFromDB();
+
+        if (users && users.length > 0) {
+            res.status(200).json({ users });
+        } else {
+            res.status(404).json({ error: 'Không có người dùng nào' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const deleteUser = async (req, res) => {
+    try {
+        const { username } = req.params;  // Lấy username từ params
+
+        // Xóa người dùng từ cơ sở dữ liệu
+        const result = await deleteUserFromDb(username);
+
+        if (result.affectedRows > 0) {
+            res.status(200).json({ message: `Người dùng ${username} đã bị xoá thành công` });
+        } else {
+            res.status(404).json({ error: 'Không tìm thấy người dùng để xoá' });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
