@@ -13,8 +13,9 @@ const Login = () => {
     // Kiểm tra nếu có token trong localStorage thì chuyển hướng về trang /user
     useEffect(() => {
         const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
         if (token) {
-            navigate('/user');
+            role === "admin" ? navigate("/admin") : navigate('/user');
         }
     }, [navigate]);
 

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { updateUser } from '../../services/AuthService';  // Đảm bảo dịch vụ updateUser đã được định nghĩa
+import { updatePass } from '../../services/AuthService';
 import '../css/Auth.css';  // Import CSS file
 
-// Component UpdateUser
-const UpdateUser = () => {
-    const [fullname, setFullName] = useState('');
-    const [email, setEmail] = useState('');
-    const [sex, setSex] = useState('');  // Trường sex (male/female)
-    const [address, setAddress] = useState('');
+const UpdatePass = () => {
+    const [oldPass, setOldPass] = useState(''); 
+    const [newPass, setNewPass] = useState('');
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();  // Khởi tạo navigate
@@ -25,19 +22,17 @@ const UpdateUser = () => {
         setLoading(true);
         setErrorMessage('');
 
-        if (sex !== '' && (sex.toLowerCase() !== 'nam' && sex.toLowerCase() !== 'nữ')) {
-            setErrorMessage('Giới tính phải là "Nam" hoặc "Nữ"');
+        if (oldPass.length < 6 && newPass.length < 6) {
+            setErrorMessage('Mật khẩu phải có ít nhất 6 ký tự');
             setLoading(false);
             return;
         }
 
         try {
-            const result = await updateUser(fullname, email, sex, address);
+            const result = await updatePass(oldPass, newPass);
             alert(result.message);
-            setFullName('');
-            setSex('');
-            setEmail('');
-            setAddress('');
+            setOldPass('');
+            setNewPass('');
             const role = localStorage.getItem("role")
             role === "admin" ? navigate('/admin') : navigate("/user");
         } catch (error) {
@@ -55,19 +50,13 @@ const UpdateUser = () => {
                     <header>Cập nhật tài khoản</header>
                     <form onSubmit={handleSubmit}>
                         <div className="field">
-                            <input type="text" value={fullname} onChange={(e) => setFullName(e.target.value)} placeholder="Nhập tên" />
+                            <input type="password" value={oldPass} onChange={(e) => setOldPass(e.target.value)} placeholder="Nhập mật khẩu cũ" />
                         </div>
                         <div className="field">
-                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Nhập email" />
+                            <input type="password" value={newPass} onChange={(e) => setNewPass(e.target.value)} placeholder="Nhập mật khẩu mới" />
                         </div>
                         <div className="field">
-                            <input type="text" value={sex} onChange={(e) => setSex(e.target.value)} placeholder="Nhập nam hoặc nữ" />
-                        </div>
-                        <div className="field">
-                            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Nhập địa chỉ" />
-                        </div>
-                        <div className="field">
-                            <button type="submit" disabled={loading}>{loading ? 'Đang cập nhật tài khoản...' : 'Cập nhật tài khoản'}</button>
+                            <button type="submit" disabled={loading}>{loading ? 'Đang đổi mật khẩu...' : 'Đổi mật khẩu'}</button>
                         </div>
                         {errorMessage && <div className="error-message">{errorMessage}</div>}
                     </form>
@@ -78,4 +67,4 @@ const UpdateUser = () => {
 };
 
 // Xuất khẩu mặc định đối tượng chứa các component
-export default UpdateUser;
+export default UpdatePass;

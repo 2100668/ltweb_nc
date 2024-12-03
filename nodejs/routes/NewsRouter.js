@@ -1,52 +1,24 @@
-// routes/NewsRoutes.js
 import express from 'express';
-import connection from '../configs/DB.js';
-
+import connection from '../DB.js'; // Kết nối MySQL
 const router = express.Router();
 
-// Lấy danh sách tin tức
-router.get('/', (req, res) => {
-  connection.query('SELECT * FROM news', (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(results);
-  });
-});
-
-// Lấy chi tiết tin tức
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-  connection.query('SELECT * FROM news WHERE id = ?', [id], (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(results[0]);
-  });
-});
-
 // Thêm tin tức mới
-router.post('/', (req, res) => {
-  const { title, content } = req.body;
-  connection.query('INSERT INTO news (title, content) VALUES (?, ?)', [title, content], (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ id: results.insertId, title, content });
-  });
-});
+router.post('/news', (req, res) => {
+    const { title, content } = req.body;
 
-// Cập nhật tin tức
-router.put('/:id', (req, res) => {
-  const { id } = req.params;
-  const { title, content } = req.body;
-  connection.query('UPDATE news SET title = ?, content = ? WHERE id = ?', [title, content, id], (err) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ message: 'Tin tức đã được cập nhật' });
-  });
-});
+    // Kiểm tra dữ liệu đầu vào
+    if (!title || !content) {
+        return res.status(400).json({ error: 'Tiêu đề và nội dung không được bỏ trống.' });
+    }
 
-// Xóa tin tức
-router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  connection.query('DELETE FROM news WHERE id = ?', [id], (err) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ message: 'Tin tức đã được xóa' });
-  });
+    const query = 'INSERT INTO tintuc (tieude, noidung) VALUES (?, ?)';
+    connection.query(query, [title, content], (err, result) => {
+        if (err) {
+            console.error('Lỗi khi thêm tin tức:', err);
+            return res.status(500).json({ error: 'Lỗi khi thêm tin tức vào cơ sở dữ liệu.' });
+        }
+        return res.status(201).json({ message: 'Thêm tin tức thành công!' });
+    });
 });
 
 export default router;

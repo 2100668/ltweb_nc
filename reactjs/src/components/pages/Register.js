@@ -16,13 +16,20 @@ const Register = () => {
         if (token) {
             navigate('/user');
         }
-    }, [navigate, username]);
+    }, [navigate]);
 
     // Hàm xử lý khi form được submit
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setErrorMessage('');  // Reset lỗi cũ mỗi lần submit
+
+        // Kiểm tra độ dài mật khẩu
+        if (password.length < 6) {
+            setErrorMessage('Mật khẩu phải có ít nhất 6 ký tự');
+            setLoading(false);
+            return;
+        }
 
         try {
             const result = await registerUser(username, password);  // Gọi hàm đăng ký từ service
@@ -34,13 +41,13 @@ const Register = () => {
             localStorage.setItem('token', result.token);  // Lưu token vào localStorage
             localStorage.setItem('username', username);
             localStorage.setItem('role', result.role);
-            const role = localStorage.getItem('role', result.role);
 
-            // Chuyển hướng đến trang người dùng sau khi đăng ký thành công
-            if(role === "admin"){
-            navigate('/admin');  // Dẫn người dùng đến trang /admin
+            // Kiểm tra role và điều hướng tương ứng
+            const role = localStorage.getItem('role');
+            if (role === "admin") {
+                navigate('/admin');  // Dẫn người dùng đến trang /admin
             } else {
-                navigate("/user");
+                navigate("/user");  // Dẫn người dùng đến trang /user
             }
         } catch (error) {
             console.error(error);
