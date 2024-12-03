@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../services/AuthService';
 import '../css/Auth.css';
+import NavbarGuest from '../Navbars/NavbarGuest';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -46,42 +47,46 @@ const Login = () => {
     };
 
     return (
-        <div className="container">
-            <div className="forms show-login">
-                <div className="form login">
-                    <header>Đăng Nhập</header>
-                    <form onSubmit={handleSubmit}>
-                        <div className="field">
-                            <input
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                required
-                                placeholder="Nhập tên đăng nhập"
-                            />
+        <div>
+            <NavbarGuest />
+            <div className="container">
+                <div className="forms show-login">
+                    <div className="form login">
+                        <header>Đăng Nhập</header>
+                        <form onSubmit={handleSubmit}>
+                            <div className="field">
+                                <input
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                    placeholder="Nhập tên đăng nhập"
+                                />
+                            </div>
+                            <div className="field">
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    placeholder="Nhập mật khẩu"
+                                />
+                            </div>
+                            <div className="field">
+                                <button type="submit" disabled={loading}>
+                                    {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+                                </button>
+                            </div>
+                            {errorMessage && <div className="error-message">{errorMessage}</div>}
+                        </form>
+                        <div className="form-link">
+                            <span>Bạn chưa có tài khoản? <a href="/register">Đăng ký</a></span>
                         </div>
-                        <div className="field">
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                placeholder="Nhập mật khẩu"
-                            />
-                        </div>
-                        <div className="field">
-                            <button type="submit" disabled={loading}>
-                                {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
-                            </button>
-                        </div>
-                        {errorMessage && <div className="error-message">{errorMessage}</div>}
-                    </form>
-                    <div className="form-link">
-                        <span>Bạn chưa có tài khoản? <a href="/register">Đăng ký</a></span>
                     </div>
                 </div>
             </div>
         </div>
+
     );
 };
 

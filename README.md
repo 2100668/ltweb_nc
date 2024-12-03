@@ -63,6 +63,7 @@ ltweb_nc
 - cập nhật thông tin
 - hiển thị thông tin người dùng
 - đổi mật khẩu
+- xoá tài khoản
 * quản trị:
 - đăng nhập
 - đăng xuất
@@ -71,7 +72,8 @@ ltweb_nc
 - đổi mật khẩu
 - hiển thị danh sách tài khoản
 - hiển thị chi tiết tài khoản
-- xoá tài khoản
+- xoá tài khoản người dùng
+- xoá tài khoản quản trị
 - cấp tài khoản
 # Phát:
 * hiển thị ds tin tức

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate từ react-router-dom
 import { addUser } from '../../services/AuthService';
+import Admin from './Admin';
 import '../css/Auth.css';  // Import CSS file
 
 const Register = () => {
@@ -48,43 +49,47 @@ const Register = () => {
     };
 
     return (
-        <div className="container">
-            <div className="forms show-signup">
-                <div className="form signup">
-                    <header>Đăng Ký</header>
-                    <form onSubmit={handleSubmit}>
-                        <div className="field">
-                            <input
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                required
-                                placeholder="Nhập tên đăng nhập"
-                            />
-                        </div>
-                        <div className="field">
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                placeholder="Nhập mật khẩu"
-                            />
-                        </div>
-                        <select value={role} onChange={(e) => setRole(e.target.value)}>
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                        <div className="field">
-                            <button type="submit" disabled={loading}>
-                                {loading ? 'Đang đăng ký...' : 'Đăng ký'}
-                            </button>
-                        </div>
-                        {errorMessage && <div className="error-message">{errorMessage}</div>}
-                    </form>
+        <div>
+            <Admin />
+            <div className="container">
+                <div className="forms show-signup">
+                    <div className="form signup">
+                        <header>Cấp Tài Khoản</header>
+                        <form onSubmit={handleSubmit}>
+                            <div className="field">
+                                <input
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                    placeholder="Nhập tên đăng nhập"
+                                />
+                            </div>
+                            <div className="field">
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    placeholder="Nhập mật khẩu"
+                                />
+                            </div>
+                            <select value={role} onChange={(e) => setRole(e.target.value)}>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            <div className="field">
+                                <button type="submit" disabled={loading}>
+                                    {loading ? 'Đang đăng ký...' : 'Cấp Tài Khoản'}
+                                </button>
+                            </div>
+                            {errorMessage && <div className="error-message">{errorMessage}</div>}
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+
     );
 };
 

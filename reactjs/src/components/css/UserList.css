@@ -1,35 +1,61 @@
-/* Thêm vào file CSS của bạn */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
+/* user-list.css */
+.user-list-container {
+    padding: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.user-list-container h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.user-list-container p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.search-input {
+    padding: 6px;
+    font-size: 14px;
+    margin-bottom: 15px;
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    max-width: 250px;
+    display: block;
 }
 
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    text-align: center;
+.user-list-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-button {
-    margin: 5px;
-    padding: 10px 15px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 5px;
+.user-list-table th,
+.user-list-table td {
+    padding: 8px;
+    font-size: 14px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.user-list-table th {
+    background-color: #f4f4f4;
+}
+
+.user-list-table td {
     cursor: pointer;
 }
 
-button:hover {
+.user-list-table td button {
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.user-list-table td button:hover {
     background-color: #d32f2f;
 }
+    

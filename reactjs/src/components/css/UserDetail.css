@@ -1,0 +1,35 @@
+/* UserDetail.css */
+.user-detail {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.user-detail h1 {
+    text-align: center;
+    color: #333;
+}
+
+.user-detail p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.user-detail .label {
+    font-weight: bold;
+    color: #555;
+}
+
+.user-detail .error {
+    color: red;
+    text-align: center;
+}
+
+.user-detail .loading {
+    text-align: center;
+    color: blue;
+}
