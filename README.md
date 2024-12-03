@@ -56,7 +56,7 @@ ltweb_nc
 * log in - out
 * giao diện người dùng
 * giao diện quản trị
-# tiến độ:
+# tiến độ: chưa có css
 * người dùng:
 - đăng nhập
 - đăng xuất
