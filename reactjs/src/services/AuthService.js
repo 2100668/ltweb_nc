@@ -130,3 +130,31 @@ export const deleteUser = async (username) => {
         throw new Error(error.response?.data.error || 'Network Error');
     }
 };
+
+export const getUserDetail = async (username) => {
+    try {
+
+        if (!username) {
+            throw new Error('Username not found in localStorage');
+        }
+
+        // Lấy token từ localStorage để gửi trong header Authorization
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            throw new Error('Token not found in localStorage');
+        }
+
+        // Gửi yêu cầu GET để lấy thông tin người dùng
+        const response = await axios.get(`${apiUrl}/user/${username}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,  // Gửi token trong header để xác thực
+            }
+        });
+
+        // Trả về dữ liệu người dùng từ server
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message || 'Error fetching user');
+    }
+};

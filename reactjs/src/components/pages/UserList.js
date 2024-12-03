@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { getAllUsers, deleteUser } from '../../services/AuthService';
-import "../css/UserList.css"
+import { useNavigate } from 'react-router-dom';  // Thêm useNavigate để điều hướng
+import "../css/UserList.css";
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');  // State lưu trữ từ khoá tìm kiếm
+    const navigate = useNavigate();  // Khởi tạo hook điều hướng
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -36,6 +39,14 @@ const UserList = () => {
         }
     };
 
+    const handleUserClick = (username) => {
+        navigate(`/user/${username}`);  // Điều hướng đến trang chi tiết của người dùng
+    };
+
+    const filteredUsers = users.filter(user =>
+        user.username.toLowerCase().includes(searchTerm.toLowerCase()) // Tìm kiếm theo tên tài khoản
+    );
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
@@ -43,6 +54,15 @@ const UserList = () => {
         <div>
             <h1>Danh Sách Tài Khoản</h1>
             <p>Số lượng người dùng: {users.length}</p>
+
+            {/* Ô tìm kiếm */}
+            <input
+                type="text"
+                placeholder="Tìm kiếm người dùng..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)} // Cập nhật state khi người dùng nhập
+            />
+
             <table>
                 <thead>
                     <tr>
@@ -53,10 +73,12 @@ const UserList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((user, index) => (
+                    {filteredUsers.map((user, index) => (
                         <tr key={user.username}>
                             <td>{index + 1}</td>
-                            <td>{user.username}</td>
+                            <td style={{ cursor: 'pointer' }} onClick={() => handleUserClick(user.username)}>
+                                {user.username}
+                            </td>
                             <td>{user.role}</td>
                             <td>
                                 <button onClick={() => handleDelete(user.username)}>Xoá</button>
@@ -70,4 +92,3 @@ const UserList = () => {
 };
 
 export default UserList;
-
