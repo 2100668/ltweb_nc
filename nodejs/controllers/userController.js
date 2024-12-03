@@ -1,6 +1,6 @@
 // controllers/AuthController.js
 import bcrypt from 'bcrypt';
-import { createUser, findUserByUsername, updateUser, updatePass, getAllUsersFromDB, deleteUserFromDb } from '../models/UserModel.js';
+import { createUser, findUserByUsername, updateUser, updatePass, getAllUsersFromDB, deleteUserFromDb, createAccount } from '../models/UserModel.js';
 
 export const registerUser = async (req, res) => {
     try {
@@ -158,6 +158,32 @@ export const deleteUser = async (req, res) => {
         } else {
             res.status(404).json({ error: 'Không tìm thấy người dùng để xoá' });
         }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
+export const addUser = async (req, res) => {
+    try {
+        const { username, password, role } = req.body;
+
+        // Kiểm tra tên đăng nhập đã tồn tại chưa
+        const existingUser = await findUserByUsername(username);
+
+        if (existingUser.length > 0) {
+            // Nếu tên đăng nhập đã tồn tại
+            return res.status(400).json({ error: 'Tên đăng nhập đã tồn tại' });
+        }
+
+        // Mã hóa mật khẩu
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        // Lưu người dùng vào cơ sở dữ liệu
+        await createAccount(username, passwordHash, role);
+
+        res.status(201).json({ message: 'Cấp tài khoản thành công' });
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

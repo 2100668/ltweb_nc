@@ -33,9 +33,9 @@ const Admin = () => {
       navigate("/profile")
     }
 
-    if (selectedOption === "option2"){
-      navigate("")
-    }
+    if (selectedOption === 'option2') {
+      navigate('/addUser'); // Điều hướng đến trang AddUser
+  }
 
     if (selectedOption === "option3"){
       navigate("/updatePass")

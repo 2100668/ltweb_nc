@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getUser, getUserDetail } from '../../services/AuthService';  // Dùng hàm getUser để lấy thông tin người dùng
+import { getUserDetail } from '../../services/AuthService';  // Dùng hàm getUser để lấy thông tin người dùng
 import { useParams } from 'react-router-dom';  // Dùng useParams để lấy username từ URL
 
 const UserDetail = () => {
