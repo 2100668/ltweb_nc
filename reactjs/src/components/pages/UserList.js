@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getAllUsers, deleteUser } from '../../services/AuthService';
 import { useNavigate } from 'react-router-dom';  // Thêm useNavigate để điều hướng
-import "../css/UserList.css";
+import NavbarAdmin from '../Navbars/NavbarAdmin';
+import Admin from './Admin';
+import "../css/UserList.css"
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
@@ -27,7 +29,7 @@ const UserList = () => {
 
     const handleDelete = async (username) => {
         const isConfirmed = window.confirm(`Bạn có chắc chắn muốn xoá tài khoản "${username}"?`);
-    
+
         if (isConfirmed) {
             try {
                 await deleteUser(username);  // Gọi hàm xóa tài khoản
@@ -52,42 +54,47 @@ const UserList = () => {
 
     return (
         <div>
-            <h1>Danh Sách Tài Khoản</h1>
-            <p>Số lượng người dùng: {users.length}</p>
+            <Admin />
+            <div className="user-list-container">
+                <h1>Danh Sách Tài Khoản</h1>
+                <p>Số lượng người dùng: {users.length}</p>
 
-            {/* Ô tìm kiếm */}
-            <input
-                type="text"
-                placeholder="Tìm kiếm người dùng..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)} // Cập nhật state khi người dùng nhập
-            />
+                {/* Ô tìm kiếm */}
+                <input
+                    className="search-input"
+                    type="text"
+                    placeholder="Tìm kiếm người dùng..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Tên đăng nhập</th>
-                        <th>Quyền</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredUsers.map((user, index) => (
-                        <tr key={user.username}>
-                            <td>{index + 1}</td>
-                            <td style={{ cursor: 'pointer' }} onClick={() => handleUserClick(user.username)}>
-                                {user.username}
-                            </td>
-                            <td>{user.role}</td>
-                            <td>
-                                <button onClick={() => handleDelete(user.username)}>Xoá</button>
-                            </td>
+                <table className="user-list-table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên đăng nhập</th>
+                            <th>Quyền</th>
+                            <th>Hành động</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {filteredUsers.map((user, index) => (
+                            <tr key={user.username}>
+                                <td>{index + 1}</td>
+                                <td className="user-name" onClick={() => handleUserClick(user.username)}>
+                                    {user.username}
+                                </td>
+                                <td>{user.role}</td>
+                                <td>
+                                    <button onClick={() => handleDelete(user.username)}>Xoá</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     );
 };
 

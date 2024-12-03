@@ -1,0 +1,76 @@
+/* src/css/NavbarAdmin.css */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Đẩy logo sang trái */
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    background: linear-gradient(90deg, #0062cc, #00b3e6); /* Gradient nền xanh đậm sang xanh nhạt */
+    padding: 20px 30px; /* Khoảng cách trên và dưới navbar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng mờ */
+    position: relative;
+}
+  
+  .navbar-logo a {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 1px; /* Khoảng cách giữa các chữ */
+    text-transform: uppercase; /* Chữ in hoa */
+    margin-right: 40px; /* Khoảng cách giữa logo và các liên kết */
+    transition: color 0.3s ease; /* Hiệu ứng chuyển màu khi hover */
+  }
+  
+  .navbar-logo a:hover {
+    color: #000000; /* Màu vàng khi hover */
+  }
+  
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Căn giữa các liên kết trong không gian */
+    gap: 30px; /* Khoảng cách giữa các liên kết */
+    position: absolute; /* Để căn giữa theo chiều ngang màn hình */
+    left: 50%; /* Đẩy phần tử vào giữa màn hình */
+    transform: translateX(-50%); /* Đảm bảo các liên kết được căn chính giữa */
+    width: 100%; /* Đảm bảo phần tử có độ rộng đầy đủ */
+    
+  }
+  
+  .navbar-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500; /* Độ đậm cho chữ */
+    letter-spacing: 1px; /* Khoảng cách giữa các chữ */
+    transition: color 0.3s ease, transform 0.3s ease; /* Hiệu ứng hover */
+  }
+  
+  .navbar-links li a:hover {
+    color: #000000; /* Màu vàng khi hover */
+    transform: translateY(-3px); /* Hiệu ứng nhấc nhẹ khi hover */
+  }
+  
+  .navbar-links li:last-child a {
+    margin-right: 0; /* Xóa khoảng cách bên phải cho phần tử cuối cùng */
+  }
+  
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column; /* Đặt navbar thành cột trên các màn hình nhỏ */
+      padding: 15px 0;
+    }
+  
+    .navbar-logo {
+      margin-bottom: 20px; /* Thêm khoảng cách dưới logo */
+    }
+  
+    .navbar-links {
+      flex-direction: column;
+      gap: 15px; /* Khoảng cách giữa các liên kết khi ở chế độ di động */
+    }
+  
+    .navbar-links li a {
+      font-size: 1.2rem; /* Đặt font size lớn hơn trên các màn hình nhỏ */
+    }
+  }
+  

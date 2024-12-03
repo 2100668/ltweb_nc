@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Admin from './Admin';
+import User from './User';
 import { updateUser, getUser } from '../../services/AuthService';
 import '../css/Auth.css';  // Import CSS file
 
 // Component UpdateUser
 const UpdateUser = () => {
+    const role = localStorage.getItem("role")
     const [userData, setUserData] = useState("");  // Trạng thái lưu dữ liệu người dùng
     const [fullname, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -47,13 +50,19 @@ const UpdateUser = () => {
         }
 
         try {
-            const result = await updateUser(fullname, email, sex, address);
+            // Sử dụng giá trị cũ nếu không có thay đổi trong trường nhập liệu
+            const updatedFullName = fullname || userData.fullname;
+            const updatedEmail = email || userData.email;
+            const updatedSex = sex || userData.sex;
+            const updatedAddress = address || userData.address;
+
+            const result = await updateUser(updatedFullName, updatedEmail, updatedSex, updatedAddress);
             alert(result.message);
             setFullName('');
             setSex('');
             setEmail('');
             setAddress('');
-            window.location.reload()
+            window.location.reload();
         } catch (error) {
             console.error(error);
             setErrorMessage(error.message);
@@ -64,32 +73,36 @@ const UpdateUser = () => {
 
 
 
+
     return (
-        <div className="container">
-            <div className="forms show-signup">
-                <div className="form signup">
-                    <header>{userData.username}</header>
-                    <form onSubmit={handleSubmit}>
-                        <div className="field">
-                            <input type="text" value={fullname} onChange={(e) => setFullName(e.target.value)} placeholder={userData.fullname || "Chưa có tên"} />
-                        </div>
-                        <div className="field">
-                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={userData.email || "Chưa có email"} />
-                        </div>
-                        <div className="field">
-                            <input type="text" value={sex} onChange={(e) => setSex(e.target.value)} placeholder={userData.sex || "Chưa có giới tính"} />
-                        </div>
-                        <div className="field">
-                            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder={userData.address || "Chưa có địa chỉ"} />
-                        </div>
-                        <div className="field">
-                            <input type="text" value={userData.role} disabled />
-                        </div>
-                        <div className="field">
-                            <button type="submit" disabled={loading}>{loading ? 'Đang cập nhật tài khoản...' : 'Cập nhật tài khoản'}</button>
-                        </div>
-                        {errorMessage && <div className="error-message">{errorMessage}</div>}
-                    </form>
+        <div>
+            {role === "admin" ? <Admin /> : <User />}
+            <div className="container">
+                <div className="forms show-signup">
+                    <div className="form signup">
+                        <header>{userData.username}</header>
+                        <form onSubmit={handleSubmit}>
+                            <div className="field">
+                                <input type="text" value={fullname} onChange={(e) => setFullName(e.target.value)} placeholder={userData.fullname || "Chưa có tên"} />
+                            </div>
+                            <div className="field">
+                                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={userData.email || "Chưa có email"} />
+                            </div>
+                            <div className="field">
+                                <input type="text" value={sex} onChange={(e) => setSex(e.target.value)} placeholder={userData.sex || "Chưa có giới tính"} />
+                            </div>
+                            <div className="field">
+                                <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder={userData.address || "Chưa có địa chỉ"} />
+                            </div>
+                            <div className="field">
+                                <input type="text" value={userData.role} disabled />
+                            </div>
+                            <div className="field">
+                                <button type="submit" disabled={loading}>{loading ? 'Đang cập nhật tài khoản...' : 'Cập nhật tài khoản'}</button>
+                            </div>
+                            {errorMessage && <div className="error-message">{errorMessage}</div>}
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

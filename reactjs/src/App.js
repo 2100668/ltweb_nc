@@ -9,16 +9,13 @@ import Admin from './components/pages/Admin';
 import Profile from './components/pages/Profile';
 import UserList from './components/pages/UserList';
 import UserDetail from './components/pages/UserDetail';
-import NewsList from './components/pages/NewsList';
-import NewsDetail from './components/pages/NewsDetail';
-import ManageNews from './components/pages/ManageNews';
-
+import AddUser from './components/pages/AddUser.js';
 
 const App = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<User />} />
+                <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/user" element={<User />} />
@@ -28,10 +25,7 @@ const App = () => {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/users" element={<UserList />} />
                 <Route path="/user/:username" element={<UserDetail />} />
-                {/* Các trang quản lý tin tức */}
-                <Route path="/newslist" element={<NewsList />} /> {/* Danh sách tin tức */}
-                <Route path="/news/:id" element={<NewsDetail />} /> {/* Chi tiết tin tức */}
-                <Route path="/ManageNews" element={<ManageNews />} /> {/* Quản lý tin tức */}
+                <Route path="/addUser" element={<AddUser />} />
             </Routes>
         </Router>
     );

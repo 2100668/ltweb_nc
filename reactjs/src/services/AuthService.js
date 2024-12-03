@@ -22,9 +22,9 @@ export const registerUser = async (username, password) => {
     }
 };
 
-export const loginUser = async (username, password) => {
+export const loginUser = async (username, password, role) => {
     try {
-        const response = await axios.post(`${apiUrl}/login`, { username, password });
+        const response = await axios.post(`${apiUrl}/login`, { username, password, role });
         return response.data; // Trả về { message, token, role }
     } catch (error) {
         throw new Error(error.response?.data.error || 'Network Error');
@@ -156,5 +156,24 @@ export const getUserDetail = async (username) => {
         return response.data;
     } catch (error) {
         throw new Error(error.message || 'Error fetching user');
+    }
+};
+
+export const addUser = async (username, password, role) => {
+    try {
+        const response = await axios.post(`${apiUrl}/addUser`, {
+            username,
+            password,
+            role
+        });
+        return response.data;  // Trả về dữ liệu từ server (thông báo thành công)
+    } catch (error) {
+        if (error.response) {
+            // Trả về lỗi từ server nếu có (status code != 2xx)
+            throw new Error(error.response.data.error || error.response.data.message);
+        } else {
+            // Trả về lỗi mạng hoặc không phản hồi
+            throw new Error('Network Error');
+        }
     }
 };

@@ -1,46 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../services/AuthService';
-import '../css/Auth.css';
-import NavbarGuest from '../Navbars/NavbarGuest';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate từ react-router-dom
+import { addUser } from '../../services/AuthService';
+import Admin from './Admin';
+import '../css/Auth.css';  // Import CSS file
 
-const Login = () => {
+const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState('admin');  // Thêm state cho quyền
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();
+    const navigate = useNavigate();  // Khởi tạo navigate
 
-    // Kiểm tra nếu có token trong localStorage thì chuyển hướng về trang /user
+    // Kiểm tra nếu đã có token trong localStorage thì chuyển hướng đến trang /user
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const role = localStorage.getItem('role');
-        if (token) {
-            role === "admin" ? navigate("/admin") : navigate('/user');
+        if (!token) {
+            navigate('/login');
         }
     }, [navigate]);
 
+    // Hàm xử lý khi form được submit
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setErrorMessage('');
+        setErrorMessage('');  // Reset lỗi cũ mỗi lần submit
+
+        // Kiểm tra độ dài mật khẩu
+        if (password.length < 6) {
+            setErrorMessage('Mật khẩu phải có ít nhất 6 ký tự');
+            setLoading(false);
+            return;
+        }
 
         try {
-            const result = await loginUser(username, password);
-            alert(result.message);
-            localStorage.setItem('token', result.token);  // Lưu token vào localStorage
-            localStorage.setItem('username', username);
-            localStorage.setItem('role', result.role);
-            const role = localStorage.getItem('role', result.role);
+            const result = await addUser(username, password, role);  // Gọi hàm đăng ký từ service
+            alert(result.message);  // Hiển thị thông báo từ server
+            setUsername('');
+            setPassword('');
+            navigate("/users");  // Dẫn người dùng đến trang /user
 
-            if (role === "admin") {
-                navigate('/admin');
-            } else {
-                navigate('/user');
-            }
         } catch (error) {
             console.error(error);
-            setErrorMessage(error.message);
+            setErrorMessage(error.message);  // Hiển thị lỗi từ server hoặc mạng
         } finally {
             setLoading(false);
         }
@@ -48,11 +50,11 @@ const Login = () => {
 
     return (
         <div>
-            <NavbarGuest />
+            <Admin />
             <div className="container">
-                <div className="forms show-login">
-                    <div className="form login">
-                        <header>Đăng Nhập</header>
+                <div className="forms show-signup">
+                    <div className="form signup">
+                        <header>Cấp Tài Khoản</header>
                         <form onSubmit={handleSubmit}>
                             <div className="field">
                                 <input
@@ -72,16 +74,17 @@ const Login = () => {
                                     placeholder="Nhập mật khẩu"
                                 />
                             </div>
+                            <select value={role} onChange={(e) => setRole(e.target.value)}>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
                             <div className="field">
                                 <button type="submit" disabled={loading}>
-                                    {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+                                    {loading ? 'Đang đăng ký...' : 'Cấp Tài Khoản'}
                                 </button>
                             </div>
                             {errorMessage && <div className="error-message">{errorMessage}</div>}
                         </form>
-                        <div className="form-link">
-                            <span>Bạn chưa có tài khoản? <a href="/register">Đăng ký</a></span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -90,4 +93,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
