@@ -1,0 +1,124 @@
+/* Gradient background */
+.gradient-custom {
+    background: #f6d365; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1)); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* Card body with adjusted size */
+.card-body {
+    background-color: white;
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem; /* Điều chỉnh khoảng cách nội dung bên trong */
+    font-size: 1rem; /* Điều chỉnh kích thước chữ */
+}
+
+/* Heading styles */
+h6 {
+    font-weight: bold;
+    font-size: 1.25rem; /* Tăng kích thước chữ */
+    color: #333;
+}
+
+/* Adjusting size of text and container elements */
+.text-muted {
+    font-size: 1rem; /* Điều chỉnh kích thước chữ cho thông tin phụ */
+    color: #6c757d; /* Màu sắc nhẹ cho thông tin phụ */
+}
+
+/* Avatar size and adjustments */
+.card .col-md-4 img {
+    height: 200px;
+}
+
+/* Adjust spacing for better layout */
+.card .col-md-4 {
+    padding: 1.5rem; /* Thêm padding để ảnh và văn bản không chạm nhau */
+    text-align: center;
+}
+
+/* Button adjustments */
+button {
+    background-color: #ff7f50;
+    border: none;
+    color: white;
+    padding: 12px 30px; /* Tăng kích thước padding */
+    border-radius: .5rem;
+    font-size: 1.1rem; /* Tăng kích thước chữ trong nút */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 17px 3px;
+}
+
+button:hover {
+    background-color: #ff5722;
+    transform: translateY(-3px); /* Hiệu ứng nổi bật khi hover */
+}
+
+/* Social media icon styles */
+.d-flex a {
+    color: #333;
+    font-size: 1.75rem; /* Điều chỉnh kích thước biểu tượng mạng xã hội */
+    margin-right: 20px;
+    transition: all 0.3s ease;
+}
+
+.d-flex a:hover {
+    color: #ff7f50;
+    transform: scale(1.2); /* Phóng to biểu tượng khi hover */
+}
+
+/* Section styling */
+section {
+    background-color: #4070f4;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
+}
+
+/* Center the layout */
+.row.d-flex.justify-content-center.align-items-center {
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    min-height: 100vh; /* Đảm bảo giao diện chiếm toàn bộ chiều cao */
+}
+
+/* Make the content responsive */
+.container {
+    max-width: 100%;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+/* Responsive card hover effect */
+.card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+/* Adjusting font size on small screens */
+@media (max-width: 768px) {
+    .card-body {
+        font-size: 0.9rem; /* Giảm kích thước chữ trên màn hình nhỏ */
+        padding: 1.5rem; /* Giảm padding cho thân card */
+    }
+
+    button {
+        padding: 10px 20px; /* Giảm kích thước nút trên màn hình nhỏ */
+    }
+
+    .d-flex a {
+        font-size: 1.5rem; /* Giảm kích thước biểu tượng mạng xã hội */
+    }
+
+    .card .col-md-4 img {
+        width: 80px; /* Giảm kích thước ảnh đại diện trên màn hình nhỏ */
+        height: 80px;
+    }
+}
