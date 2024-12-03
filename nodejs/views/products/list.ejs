@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sản phẩm</title>
+</head>
+<body>
+    <h1>Danh sách sản phẩm</h1>
+    <a href="/products/add">Thêm sản phẩm mới</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Hình ảnh</th>
+                <th>Mô tả</th>
+                <th>ID loại</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach(product => { %>
+                <tr>
+                    <td><%= product.masp %></td>
+                    <td><%= product.ten %></td>
+                    <td><%= product.gia %></td>
+                    <td>
+                        <img src="/<%= product.hinhanh %>" alt="<%= product.ten %>" width="100" height="auto">
+                    </td>
+                    <td><%= product.mota %></td>
+                    <td><%= product.idloai %></td>
+                    <td>
+                        <a href="/products/edit/<%= product.masp %>">Sửa</a>
+                        <form action="/products/delete/<%= product.masp %>" method="POST" style="display:inline;">
+                            <button type="submit">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

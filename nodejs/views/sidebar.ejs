@@ -1,0 +1,66 @@
+<div class="container-fluid d-flex">
+
+    <div class="sidebar">
+        <h4 class="text-center">ADMIN</h4>
+        <div class="text-center my-4">
+            <img src="https://via.placeholder.com/60" alt="Avatar" class="admin-avatar">
+            <p class="mt-2">Dashboard</p>
+        </div>
+
+        <!-- Navigation Items -->
+        <ul class="nav flex-column">
+            <!-- Quản lý sản phẩm -->
+            <li class="nav-item">
+                <a class="nav-link" href="/products">Quản lý sản phẩm</a>
+                <ul class="nav flex-column submenu">
+                    <li class="nav-item"><a class="nav-link" href="/products">Danh sách sản phẩm</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/products/add">Thêm sản phẩm</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/products/edit/:id">Cập nhật sản phẩm</a></li>
+                </ul>
+            </li>
+
+            <!-- Quản lý tài khoản -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">Quản lý tài khoản</a>
+                <ul class="nav flex-column submenu">
+                    <li class="nav-item"><a class="nav-link" href="/getUser">Cập nhật tài khoản</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/createnewuser">Cấp tài khoản</a></li>
+                </ul>
+            </li>
+
+            <!-- Quản lý loại -->
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/">Quản lý loại</a>
+                <ul class="nav flex-column submenu">
+                    <li class="nav-item"><a class="nav-link" href="/categories/">quản lý loại</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/categories/add">Thêm loại</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/categories/edit/:id">Cập nhật loại</a></li>
+                </ul>
+            </li>
+
+            <!-- Đăng xuất -->
+            <li class="nav-item">
+                <a class="nav-link text-danger" href="/logout">Đăng xuất</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- JavaScript để toggle submenu -->
+    <script>
+        // Lắng nghe sự kiện click vào phần tử nav-item
+        document.querySelectorAll('.nav-item > .nav-link').forEach(item => {
+            item.addEventListener('click', function (event) {
+                // Kiểm tra xem mục có submenu hay không
+                const submenu = this.nextElementSibling;
+
+                // Nếu có submenu, ngừng hành động mặc định và toggle submenu
+                if (submenu && submenu.classList.contains('submenu')) {
+                    event.preventDefault();  // Ngừng hành động mặc định chỉ khi có submenu
+                    const parentItem = this.parentElement;
+                    parentItem.classList.toggle('active'); // Thêm hoặc bỏ lớp 'active'
+                    submenu.classList.toggle('show');  // Toggle trạng thái hiển thị của submenu
+                }
+            });
+        });
+    </script>
+</div>

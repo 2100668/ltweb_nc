@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sửa loại</title>
+</head>
+<body>
+    <h1>Sửa loại</h1>
+    <form action="/categories/edit/<%= category.idloai %>" method="POST">
+        <label for="name">Tên loại:</label>
+        <input type="text" id="name" name="name" value="<%= category.tenloai %>" required>
+        <button type="submit">Cập nhật loại</button>
+    </form>
+    <a href="/categories">Quay lại danh sách</a>
+</body>
+</html>

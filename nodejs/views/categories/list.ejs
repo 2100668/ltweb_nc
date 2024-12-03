@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách loại</title>
+</head>
+<body>
+    <h1>Danh sách loại</h1>
+    <a href="/categories/add">Thêm loại mới</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên loại</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% categories.forEach(category => { %>
+                <tr>
+                    <td><%= category.idloai %></td>
+                    <td><%= category.tenloai %></td>
+                    <td>
+                        <a href="/categories/edit/<%= category.idloai %>">Sửa</a>
+                        <form action="/categories/delete/<%= category.idloai %>" method="POST" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa loại này không?');">
+                            <button type="submit">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

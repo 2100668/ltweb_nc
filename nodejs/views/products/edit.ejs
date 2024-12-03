@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sửa sản phẩm</title>
+</head>
+<body>
+    <h1>Sửa sản phẩm</h1>
+    <form action="/products/edit/<%= product.masp %>" method="POST" enctype="multipart/form-data">
+        <label for="ten">Tên sản phẩm:</label>
+        <input type="text" name="ten" value="<%= product.ten %>" required>
+        <label for="gia">Giá:</label>
+        <input type="number" name="gia" value="<%= product.gia %>" required>
+        <label for="hinhanh">Hình ảnh:</label>
+        <input type="file" name="hinhanh" accept="image/*">
+        <label for="mota">Mô tả:</label>
+        <textarea name="mota" required><%= product.mota %></textarea>
+        <label for="idloai">ID loại:</label>
+        <input type="number" name="idloai" value="<%= product.idloai %>" required>
+        <button type="submit">Cập nhật sản phẩm</button>
+    </form>
+</body>
+</html>
