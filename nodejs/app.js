@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/AuthRoutes.js';
+import newsRoutes from './routes/NewsRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/api', authRoutes);
+app.use('/api/news', newsRoutes);
 
 // Server
 app.listen(PORT, () => {
