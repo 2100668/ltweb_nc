@@ -1,0 +1,102 @@
+/* Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body, html {
+  height: 100%;
+  width: 100%;
+}
+.update-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  background-color: #4070f4;
+}
+.update-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 430px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 6px;
+}
+.update-form h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #232836;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.update-form .field {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 6px;
+}
+.field input,
+.field select {
+  height: 100%;
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 6px;
+  padding: 0 15px;
+  outline: none;
+  border: 1px solid #CACACA;
+}
+.field input:focus,
+.field select:focus {
+  border-bottom-width: 2px;
+}
+.field button {
+  height: 100%;
+  width: 100%;
+  background-color: #0171d3;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.field button:hover {
+  background-color: #016dcb;
+}
+.actions {
+  margin-top: 20px;
+}
+.actions button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #0171d3;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.actions button:hover {
+  background-color: #016dcb;
+}
+.success-message {
+  margin-top: 20px;
+  color: green;
+  font-weight: 600;
+}
+.error-message {
+  margin-top: 20px;
+  color: red;
+  font-weight: 600;
+}
