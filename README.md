@@ -56,6 +56,23 @@ ltweb_nc
 * log in - out
 * giao diện người dùng
 * giao diện quản trị
+# tiến độ:
+* người dùng:
+- đăng nhập
+- đăng xuất
+- cập nhật thông tin
+- hiển thị thông tin người dùng
+- đổi mật khẩu
+* quản trị:
+- đăng nhập
+- đăng xuất
+- cập nhật thông tin
+- hiển thị thông tin quản trị
+- đổi mật khẩu
+- hiển thị danh sách tài khoản
+- hiển thị chi tiết tài khoản
+- xoá tài khoản
+- cấp tài khoản
 # Phát:
 * hiển thị ds tin tức
 * hiển thị chi tiết tin tức
