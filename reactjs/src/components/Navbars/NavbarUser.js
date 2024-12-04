@@ -16,7 +16,7 @@ const NavbarUser = () => {
           <Link to="/l">Loại</Link>
         </li>
         <li>
-          <Link to="/n">Tin Tức</Link>
+          <Link to="/NewsList">Tin Tức</Link>
         </li>
       </ul>
     </nav>

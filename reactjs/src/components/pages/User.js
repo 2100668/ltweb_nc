@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback  } from 'react';
 import { getUser } from '../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
 import NavbarUser from '../Navbars/NavbarUser';
@@ -42,8 +42,10 @@ const User = () => {
     const role = localStorage.getItem("role");
 
     // Kiểm tra token và điều hướng
-    if (!token && role !== "admin") {
+    if (!token) {
       navigate("/login");
+    } else if (token && role === "admin"){
+      navigate("/admin")
     }
 
   }, [navigate]); // Kiểm tra token khi load trang, chỉ chạy một lần

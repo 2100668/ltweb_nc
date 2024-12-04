@@ -10,6 +10,9 @@ import Profile from './components/pages/Profile';
 import UserList from './components/pages/UserList';
 import UserDetail from './components/pages/UserDetail';
 import AddUser from './components/pages/AddUser.js';
+// -------------------------------------------------- phat
+import NewsList from './components/pages/NewsList.js';
+import ManageNews from './components/pages/ManageNews.js';
 
 const App = () => {
     return (
@@ -26,6 +29,9 @@ const App = () => {
                 <Route path="/users" element={<UserList />} />
                 <Route path="/user/:username" element={<UserDetail />} />
                 <Route path="/addUser" element={<AddUser />} />
+                {/* -------------------------------------------- phat */}
+                <Route path="/newsList" element={<NewsList />} />
+                <Route path="/managerNews" element={<ManageNews />} />
             </Routes>
         </Router>
     );

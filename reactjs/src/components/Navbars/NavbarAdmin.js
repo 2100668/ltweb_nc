@@ -16,7 +16,7 @@ const NavbarAdmin = () => {
           <Link to="/quanlyloai">Quản Lý Loại</Link>
         </li>
         <li>
-          <Link to="/qlnews">Quản Lý Tin Tức</Link>
+          <Link to="/managerNews">Quản Lý Tin Tức</Link>
         </li>
         <li>
           <Link to="/users">Danh Sách Tài Khoản</Link>

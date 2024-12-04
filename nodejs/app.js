@@ -3,11 +3,11 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/AuthRoutes.js';
-import newsRoutes from './routes/NewsRoutes.js';
+import newsRoutes from './routes/NewsRouter.js';
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 5000; // Sử dụng cổng 5000 nếu không có giá trị trong .env
+const PORT = process.env.PORT;
 
 // Middleware
 app.use(cors());

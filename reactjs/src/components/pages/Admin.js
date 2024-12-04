@@ -40,8 +40,10 @@ const Admin = () => {
     const role = localStorage.getItem('role');
 
     // Kiểm tra token và điều hướng
-    if (!token && role !== "admin") {
+    if (!token) {
       navigate("/login");
+    } else if (token && role === "user"){
+      navigate("/user")
     }
 
   }, [navigate]);
